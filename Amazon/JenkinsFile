@@ -10,7 +10,7 @@ pipeline {
             }
         }
         
-        stage  ('post'){
+        stage ('post'){
             steps {                
                
                     archiveArtifacts artifacts: 'backend/target/*.jar', followSymlinks: false
