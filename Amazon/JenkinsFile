@@ -1,20 +1,32 @@
 pipeline {
     agent any
     stages {
-              
-        stage ('build'){
-            steps {
-                
+                              
+        stage ('build') {
+            
+                steps {
+                    dir ('Amazon'){                    
                     sh 'mvn clean install'
+                    }
+                }
+                
+                    
+            }
+              
+        
+        stage ('test') {
+          
+                steps {
+                    
+                    archiveArtifacts artifacts: 'Amazon/Amazon-Web/target/*.war', followSymlinks: false
                 
             }
         }
         
-        stage ('post'){
-            steps {                
-               
-                    archiveArtifacts artifacts: 'backend/target/*.jar', followSymlinks: false
-                    archiveArtifacts artifacts: 'frontend/target/*.jar', followSymlinks: false
+        stage ('run') {
+            steps {
+                
+                    sh 'cp Amazon/Amazon-Web/target/*.war /opt/tomcat/webapps'
                 
             }
         }
