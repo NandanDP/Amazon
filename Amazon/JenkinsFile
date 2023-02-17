@@ -3,17 +3,17 @@ pipeline {
 	stages {
 		stage ('build') {
 			steps {
-			    dir ('Amazon/Amazon'){
+			    
 				    sh 'mvn clean install'
-			    }
+			    
 			}
 		
 		}
 		stage ('test') {
 			steps {
-			    dir ('Amazon/Amazon'){
+			    
 				    archiveArtifacts artifacts: 'Amazon-Web/target/*.war', followSymlinks: false
-			    }
+			    
 			}
 		}
 
