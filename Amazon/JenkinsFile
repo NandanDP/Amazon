@@ -1,0 +1,27 @@
+pipeline {
+	agent any
+	stages {
+	    
+	    stage ('clone') {
+			steps {
+				sh 'git clone https://github.com/NandanDP/Amazon'
+			}
+		}
+		stage ('build') {
+			steps {
+			    dir ('Amazon/Amazon'){
+				    sh 'mvn clean install'
+			    }
+			}
+		
+		}
+		stage ('test') {
+			steps {
+			    dir ('Amazon/Amazon'){
+				    archiveArtifacts artifacts: 'Amazon-Web/target/*.war', followSymlinks: false
+			    }
+			}
+		}
+
+	}
+}
