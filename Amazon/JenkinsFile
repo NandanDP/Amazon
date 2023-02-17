@@ -1,21 +1,23 @@
 pipeline {
-	agent any
-	stages {
-		stage ('build') {
-			steps {
-			    
-				    sh 'mvn clean install'
-			    
-			}
-		
-		}
-		stage ('test') {
-			steps {
-			    
-				    archiveArtifacts artifacts: 'Amazon-Web/target/*.war', followSymlinks: false
-			    
-			}
-		}
-
-	}
+    agent any
+    stages {
+              
+        stage ('build'){
+            steps {
+                
+                    sh 'mvn clean install'
+                
+            }
+        }
+        
+        stage  ('post'){
+            steps {                
+               
+                    archiveArtifacts artifacts: 'backend/target/*.jar', followSymlinks: false
+                    archiveArtifacts artifacts: 'frontend/target/*.jar', followSymlinks: false
+                
+            }
+        }
+    }
 }
+
